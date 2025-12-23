@@ -92,35 +92,33 @@ function startHeartAnimation() {
 	};
 })(jQuery);
 
+// 1. Gumawa ng bagong Date object
 var together = new Date();
-together.setFullYear(2025, 8, 23); // September 23, 2025
+
+// 2. Set ang start date (September 23, 2025, 16:30)
+together.setFullYear(2025, 8, 23); // Month 8 = September
 together.setHours(16);
 together.setMinutes(30);
 together.setSeconds(0);
 together.setMilliseconds(0);
 
+// 3. Function to calculate elapsed time
 function timeElapse() {
     var current = new Date();
-    var seconds = Math.floor((current - together) / 1000);
+    var seconds = Math.floor((current - together) / 1000); // difference in seconds
 
     var days = Math.floor(seconds / (3600 * 24));
-    seconds = seconds % (3600 * 24);
+    seconds %= (3600 * 24);
 
     var hours = Math.floor(seconds / 3600);
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
-    seconds = seconds % 3600;
+    if (hours < 10) hours = "0" + hours;
+    seconds %= 3600;
 
     var minutes = Math.floor(seconds / 60);
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    seconds = seconds % 60;
+    if (minutes < 10) minutes = "0" + minutes;
+    seconds %= 60;
 
-    if (seconds < 10) {
-        seconds = "0" + seconds;
-    }
+    if (seconds < 10) seconds = "0" + seconds;
 
     var result =
         "<span class=\"digit\">" + days + "</span> days " +
@@ -130,6 +128,11 @@ function timeElapse() {
 
     $("#elapseClock").html(result);
 }
+
+// 4. Show immediately and then update every second
+timeElapse();
+setInterval(timeElapse, 1000);
+
 
 function showMessages() {
 	adjustWordsPosition();
